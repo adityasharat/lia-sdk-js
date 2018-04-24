@@ -1,4 +1,4 @@
-const LiaCredentials = (() => {
+const Credentials = (() => {
   let clientName;
   let clientId;
   let clientSecret;
@@ -6,7 +6,7 @@ const LiaCredentials = (() => {
   let communityUrl;
   let instanceId;
 
-  class LiaCredentials {
+  class Credentials {
     constructor(config) {
       clientName = config.clientName;
       clientId = config.clientId;
@@ -41,7 +41,7 @@ const LiaCredentials = (() => {
     }
   }
 
-  return LiaCredentials;
+  return Credentials;
 })();
 
-export default LiaCredentials;
+export default Credentials;

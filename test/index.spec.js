@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 import chai from 'chai';
-import { LiaSdk } from '../lib/lia-sdk-core';
+import { builder } from '../lib/lia-sdk-core';
 
 chai.expect();
 
@@ -11,7 +11,7 @@ let sdk;
 
 describe('Given an instance of the LIA SDK', () => {
   before(() => {
-    sdk = LiaSdk.builder({
+    sdk = builder.build({
       clientName: 'qwerty1234567890',
       clientId: 'qwerty1234567890',
       clientSecret: 'qwerty1234567890',

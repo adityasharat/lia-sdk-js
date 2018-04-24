@@ -1,5 +1,5 @@
-import { LI_CORE_SDK_VERSION } from './LiaConstants';
-import LiaCredentials from './LiaCredentials';
+import { LI_CORE_SDK_VERSION } from './Constants';
+import Credentials from './Credentials';
 
 /**
  * Interface to Lithium Community Android SDK. Provides the
@@ -13,7 +13,7 @@ const LiaSdk = (() => {
 
   class LiaSdk {
     constructor(_credentials, _localstorage) {
-      credentials = new LiaCredentials(_credentials);
+      credentials = new Credentials(_credentials);
       Object.freeze(credentials);
       localstorage = _localstorage;
       version = LI_CORE_SDK_VERSION;
@@ -62,7 +62,7 @@ const LiaSdk = (() => {
  * @param {*} credentials The credentials for authenticating the application.
  * @param {*} localstorage The local storage interface to persist state.
  */
-function builder(credentials, localstorage) {
+function build(credentials, localstorage) {
 
   const instance = new LiaSdk(credentials, localstorage); // create a new instance
 
@@ -72,5 +72,5 @@ function builder(credentials, localstorage) {
 };
 
 export default {
-  builder
+  build
 };
