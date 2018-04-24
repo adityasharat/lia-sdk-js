@@ -17,8 +17,14 @@ if (env === 'build') {
   outputFile = libraryName + '.js';
 }
 
+plugins.push(new webpack.DefinePlugin({
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+}));
+
 const config = {
-  entry: __dirname + '/src/index.js',
+  entry: {
+    main: __dirname + '/src/index.js'
+  },
   devtool: 'source-map',
   output: {
     path: __dirname + '/lib',

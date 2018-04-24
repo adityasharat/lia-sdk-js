@@ -1,5 +1,7 @@
 import { LI_CORE_SDK_VERSION } from './Constants';
+import { generateHexString } from './Utils';
 import Credentials from './Credentials';
+import * as RestClient from './rest/RestClient';
 
 /**
  * Interface to Lithium Community Android SDK. Provides the
@@ -10,6 +12,12 @@ const LiaSdk = (() => {
   let localstorage;
   let version;
   let isInitialized = false;
+  let visitorId;
+  let client;
+  // TODO: auth should be exposed publicly as a read only object
+  let auth = {
+    token: null
+  };
 
   class LiaSdk {
     constructor(_credentials, _localstorage) {
@@ -17,6 +25,8 @@ const LiaSdk = (() => {
       Object.freeze(credentials);
       localstorage = _localstorage;
       version = LI_CORE_SDK_VERSION;
+      visitorId = generateHexString();
+      client = RestClient.build(this);
     }
 
     get credentials() {
@@ -33,6 +43,18 @@ const LiaSdk = (() => {
 
     get isInitialized() {
       return isInitialized;
+    }
+
+    get visitorId() {
+      return visitorId;
+    }
+
+    get client() {
+      return client;
+    }
+
+    get auth() {
+      return auth;
     }
 
     login() {
