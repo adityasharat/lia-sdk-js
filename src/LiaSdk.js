@@ -2,12 +2,14 @@ import { LI_CORE_SDK_VERSION } from './LiaConstants';
 import LiaCredentials from './LiaCredentials';
 
 /**
- * Lia SDK class.
+ * Interface to Lithium Community Android SDK. Provides the
+ * entry point into the Community REST API v2 using OAuth2.
  */
 const LiaSdk = (() => {
   let credentials;
   let localstorage;
   let version;
+  let isInitialized = false;
 
   class LiaSdk {
     constructor(_credentials, _localstorage) {
@@ -28,34 +30,47 @@ const LiaSdk = (() => {
     get version() {
       return version;
     }
+
+    get isInitialized() {
+      return isInitialized;
+    }
+
+    login() {
+      isInitialized = true;
+    }
+
+    logout() {
+      localstorage && typeof localstorage.clear === 'function' && localstorage.clear();
+      isInitialized = false;
+    }
+
+    update() {
+
+    }
+
+    user() {
+
+    }
   }
 
   return LiaSdk;
 })();
 
-let _isInitialized = false;
-let _instance = null;
-
+/**
+ * This builder creates a new instance of the Lia SDK.
+ *
+ * @param {*} credentials The credentials for authenticating the application.
+ * @param {*} localstorage The local storage interface to persist state.
+ */
 function builder(credentials, localstorage) {
-  if (!_isInitialized) {
-    _instance = new LiaSdk(credentials, localstorage);
-    Object.freeze(_instance);
-    _isInitialized = true;
-  }
 
-  return _instance;
+  const instance = new LiaSdk(credentials, localstorage); // create a new instance
+
+  Object.freeze(instance); // freeze the object to make properties read only
+
+  return instance;
 };
 
-function isInitialized() {
-  return isInitialized;
-}
-
-function instance() {
-  return _instance;
-}
-
 export default {
-  isInitialized,
-  builder,
-  instance
+  builder
 };

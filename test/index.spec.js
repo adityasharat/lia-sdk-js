@@ -20,6 +20,7 @@ describe('Given an instance of the LIA SDK', () => {
       instanceId: 'qwerty1234567890'
     }, {});
   });
+
   describe('sdk.version', () => {
     it('should not be null', () => {
       expect(sdk.version).to.not.be.null;
@@ -34,6 +35,7 @@ describe('Given an instance of the LIA SDK', () => {
       expect(write).to.throw(/version/);
     });
   });
+
   describe('sdk.credentials', () => {
     it('should not be null', () => {
       expect(sdk.credentials).to.not.be.null;
@@ -46,6 +48,25 @@ describe('Given an instance of the LIA SDK', () => {
         sdk.credentials = {};
       }
       expect(write).to.throw(/credentials/);
+    });
+  });
+
+  describe('sdk.login', () => {
+    it('should not be null', () => {
+      expect(sdk.login).to.not.be.null;
+    });
+    it('should be an function', () => {
+      expect(sdk.login).to.be.an('function');
+    });
+    it('should be read only', () => {
+      function write() {
+        sdk.login = {};
+      }
+      expect(write).to.throw(/login/);
+    });
+    it('should set isInitialized to `true`', () => {
+      sdk.login();
+      expect(sdk.isInitialized).to.be.true;
     });
   });
 });
