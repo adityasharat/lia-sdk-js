@@ -26,6 +26,8 @@ const LiaSdk = (() => {
       localstorage = _localstorage;
       version = LI_CORE_SDK_VERSION;
       visitorId = generateHexString();
+      // TODO: This is a hack for development and must be removed
+      auth.token = _credentials.token;
       client = RestClient.build(this);
     }
 

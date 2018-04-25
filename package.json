@@ -2,7 +2,7 @@
   "name": "lia-sdk-core",
   "version": "0.1.0",
   "description": "Lithium Community Core JavaScript SDK",
-  "main": "lib/library.js",
+  "main": "lib/lia-sdk-core.js",
   "scripts": {
     "build": "webpack --env dev && webpack --env build && npm run test",
     "dev": "webpack --progress --colors --watch --env dev",
