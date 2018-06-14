@@ -65,7 +65,6 @@ describe('Given an instance of the LIA SDK', () => {
       expect(write).to.throw(/login/);
     });
     it('should set isInitialized to `true`', () => {
-      sdk.login();
       expect(sdk.isInitialized).to.be.true;
     });
   });

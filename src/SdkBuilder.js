@@ -1,10 +1,10 @@
 import { LI_CORE_SDK_VERSION } from './Constants';
 import { generateHexString } from './Utils';
 import Credentials from './Credentials';
-import * as RestClient from './rest/RestClient';
+import * as ApiClient from './rest/ApiClient';
 
 /**
- * Interface to Lithium Community Android SDK. Provides the
+ * Interface to Lithium Community SDK. Provides the
  * entry point into the Community REST API v2 using OAuth2.
  */
 const LiaSdk = (() => {
@@ -15,9 +15,8 @@ const LiaSdk = (() => {
   let visitorId;
   let client;
   // TODO: auth should be exposed publicly as a read only object
-  let auth = {
-    token: null
-  };
+  let auth = {};
+  let user;
 
   class LiaSdk {
     constructor(_credentials, _localstorage) {
@@ -26,9 +25,8 @@ const LiaSdk = (() => {
       localstorage = _localstorage;
       version = LI_CORE_SDK_VERSION;
       visitorId = generateHexString();
-      // TODO: This is a hack for development and must be removed
-      auth.token = _credentials.token;
-      client = RestClient.build(this);
+      client = ApiClient.build(this);
+      isInitialized = true;
     }
 
     get credentials() {
@@ -59,21 +57,29 @@ const LiaSdk = (() => {
       return auth;
     }
 
-    login() {
-      isInitialized = true;
+    get user() {
+      return user;
+    }
+
+    login(code) {
+      return client.login({
+        code
+      }).then((response) => {
+        auth = response.data.data;
+        return client.user().then((response) => {
+          user = response.data.data.items[0];
+          return user;
+        });
+      });
     }
 
     logout() {
+      user = null;
       localstorage && typeof localstorage.clear === 'function' && localstorage.clear();
-      isInitialized = false;
     }
 
-    update() {
-
-    }
-
-    user() {
-
+    isLoggedIn() {
+      return !!user;
     }
   }
 

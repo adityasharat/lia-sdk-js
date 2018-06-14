@@ -3,7 +3,7 @@
 
 The Lithium Community SDK helps application developers integrate Lithium Community into applications running on platforms that support JavaScript, providing support for browsing boards, posting and interacting with messages, managing attachments, sending push notifications, and authenticating users.
 
-* The Community Android SDK is written in ES-6
+* The Community JS SDK is written in ES-6
 
 ## Features
 
